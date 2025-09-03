@@ -1,0 +1,52 @@
+# docker-compose.yml
+version: "3.8"
+services:
+  # De hoofd TR-069 ACS Service
+  genieacs:
+    image: genieacs/genieacs:v1.2
+    volumes:
+      - ./config:/app/config
+    environment:
+      - GENIEACS_MONGODB_CONNECTION_URL=${MONGO_URL}
+      - GENIEACS_REDIS_HOST=${REDISHOST}
+      - GENIEACS_REDIS_PORT=${REDISPORT}
+    depends_on:
+      - mongodb
+      - redis
+
+  # De Northbound API voor de GUI
+  genieacs-nbi:
+    image: genieacs/genieacs:v1.2
+    command: genieacs-nbi
+    volumes:
+      - ./config:/app/config
+    environment:
+      - GENIEACS_MONGODB_CONNECTION_URL=${MONGO_URL}
+      - GENIEACS_REDIS_HOST=${REDISHOST}
+      - GENIEACS_REDIS_PORT=${REDISPORT}
+    depends_on:
+      - mongodb
+      - redis
+
+  # De File server voor firmware
+  genieacs-fs:
+    image: genieacs/genieacs:v1.2
+    command: genieacs-fs
+    environment:
+      - GENIEACS_MONGODB_CONNECTION_URL=${MONGO_URL}
+    depends_on:
+      - mongodb
+
+  # De Web GUI
+  genieacs-gui:
+    image: genieacs/genieacs-gui:v1.2
+    volumes:
+      - ./gui-config:/app/dist/assets/config
+    depends_on:
+      - genieacs-nbi
+
+  # Databases (Deze worden door Railway aangeleverd, maar staan hier ter referentie)
+  mongodb:
+    image: mongo:4.4
+  redis:
+    image: redis:7.0 

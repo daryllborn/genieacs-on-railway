@@ -1,0 +1,10 @@
+# config/summary.yml
+- _id
+- InternetGatewayDevice.DeviceInfo.SerialNumber
+- InternetGatewayDevice.DeviceInfo.Manufacturer
+- InternetGatewayDevice.DeviceInfo.ProductClass
+- InternetGatewayDevice.DeviceInfo.HardwareVersion
+- InternetGatewayDevice.DeviceInfo.SoftwareVersion
+- InternetGatewayDevice.ManagementServer.ConnectionRequestURL
+- _lastInform
+- _ip 

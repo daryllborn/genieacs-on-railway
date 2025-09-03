@@ -1,0 +1,4 @@
+{
+  "genieacs_api_url": "http://genieacs-nbi:7557",
+  "genieacs_ws_url": "ws://genieacs-nbi:7557"
+} 
