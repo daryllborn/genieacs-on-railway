@@ -45,7 +45,7 @@ services:
     depends_on:
       - genieacs-nbi
 
-  # Databases (Deze worden door Railway aangeleverd, maar staan hier ter referentie)
+  # Databases (Deze worden door Railway aangeleverd, maar staan hier ter referentie.)
   mongodb:
     image: mongo:4.4
   redis:
