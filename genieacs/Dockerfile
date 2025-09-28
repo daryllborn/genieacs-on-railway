@@ -1,3 +1,3 @@
-FROM genieacs/genieacs:v1.2
+FROM genieacs/genieacs:1.2.13
 CMD ["genieacs"]
 
