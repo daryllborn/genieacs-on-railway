@@ -1,3 +1,6 @@
-FROM quay.io/genieacs/genieacs:1.2.13
+FROM node:20-bullseye
+
+RUN npm install -g genieacs@1.2.13
+
 CMD ["genieacs"]
 
