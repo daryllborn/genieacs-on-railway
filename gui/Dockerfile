@@ -4,7 +4,7 @@ RUN npm install -g genieacs@1.2.13
 
 WORKDIR /app
 
-RUN cp -R /usr/local/lib/node_modules/genieacs-gui/dist ./dist
+RUN cp -R /usr/local/lib/node_modules/genieacs/public ./dist
 
 COPY ./gui-config/config.json /app/dist/assets/config/config.json
 
