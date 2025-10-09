@@ -10,5 +10,5 @@ COPY ./gui-config/config.json /app/dist/assets/config/config.json
 
 ENV PORT=3000
 
-CMD ["node", "/usr/local/lib/node_modules/genieacs/bin/genieacs-ui", "--port", "${PORT:-3000}"]
+CMD ["sh", "-c", "node /usr/local/lib/node_modules/genieacs/bin/genieacs-ui --interface 0.0.0.0 --port ${PORT:-3000}"]
 
