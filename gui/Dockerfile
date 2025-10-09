@@ -8,5 +8,7 @@ RUN cp -R /usr/local/lib/node_modules/genieacs/public ./dist
 
 COPY ./gui-config/config.json /app/dist/assets/config/config.json
 
-CMD ["node", "/usr/local/lib/node_modules/genieacs/bin/genieacs-ui"]
+ENV PORT=3000
+
+CMD ["node", "/usr/local/lib/node_modules/genieacs/bin/genieacs-ui", "--port", "${PORT:-3000}"]
 
