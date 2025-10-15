@@ -1,5 +1,5 @@
 ARG GENIEACS_REPO=https://github.com/daryllborn/genieacs.git
-ARG GENIEACS_REF=v1.3.5
+ARG GENIEACS_REF=master
 
 FROM node:20-bullseye AS build
 RUN apt-get update && apt-get install -y --no-install-recommends git python3 build-essential \
