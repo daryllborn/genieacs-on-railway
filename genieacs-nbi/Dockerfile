@@ -8,9 +8,9 @@ WORKDIR /src
 ARG GENIEACS_REPO
 ARG GENIEACS_REF
 RUN git clone --depth 1 --branch "${GENIEACS_REF}" "${GENIEACS_REPO}" .
-RUN corepack enable && pnpm install --frozen-lockfile
-RUN pnpm run build
-RUN pnpm prune --prod
+RUN npm install
+RUN npm run build
+RUN npm prune --production
 
 FROM node:20-slim
 ENV NODE_ENV=production
