@@ -15,18 +15,16 @@ RUN npm prune --production
 FROM node:20-slim
 ENV NODE_ENV=production
 WORKDIR /app
-COPY --from=build /src/apps/gui/dist ./dist
+COPY --from=build /src /app
 RUN groupadd -r genieacs && useradd -r -g genieacs genieacs \
     && mkdir -p /data \
     && chown -R genieacs:genieacs /app
 USER genieacs
 
-COPY --from=build /src /genieacs-src
-
 ENV GENIEACS_GUI_HOST=0.0.0.0
 ENV GENIEACS_GUI_PORT=3000
 
-COPY ./gui-config/config.json /app/dist/assets/config/config.json
+COPY ./gui-config/config.json /app/ui/dist/assets/config/config.json
 
-CMD ["node", "/genieacs-src/dist/bin/genieacs-ui"]
+CMD ["node", "dist/bin/genieacs-ui"]
 
