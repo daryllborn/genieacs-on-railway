@@ -1,11 +1,13 @@
+ARG GENIEACS_REPO=https://github.com/daryllborn/genieacs.git
 ARG GENIEACS_REF=v1.3.5
 
 FROM node:20-bullseye AS build
 RUN apt-get update && apt-get install -y --no-install-recommends git python3 build-essential \
     && rm -rf /var/lib/apt/lists/*
 WORKDIR /src
+ARG GENIEACS_REPO
 ARG GENIEACS_REF
-RUN git clone --depth 1 --branch "${GENIEACS_REF}" https://github.com/genieacs/genieacs.git .
+RUN git clone --depth 1 --branch "${GENIEACS_REF}" "${GENIEACS_REPO}" .
 RUN corepack enable && pnpm install --frozen-lockfile
 RUN pnpm --filter @genieacs/gui build
 RUN pnpm prune --prod
