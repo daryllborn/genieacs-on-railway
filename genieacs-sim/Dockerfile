@@ -18,8 +18,5 @@ ENV SIM_PASSWORD=""
 ENV SIM_INTERVAL=""
 ENV SIM_EXTRA_ARGS=""
 
-COPY entrypoint.sh /entrypoint.sh
-RUN chmod +x /entrypoint.sh
-
-ENTRYPOINT ["/entrypoint.sh"]
+CMD ["sh", "-c", "./genieacs-sim --acs ${SIM_ACS_URL} --serial ${SIM_SERIAL} --oui ${SIM_OUI} --product ${SIM_PRODUCT} ${SIM_USERNAME:+--username ${SIM_USERNAME}} ${SIM_PASSWORD:+--password ${SIM_PASSWORD}} ${SIM_INTERVAL:+--interval ${SIM_INTERVAL}} ${SIM_EXTRA_ARGS}"]
 
