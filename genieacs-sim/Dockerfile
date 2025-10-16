@@ -9,14 +9,11 @@ RUN apt-get update \
 RUN git clone --depth 1 https://github.com/genieacs/genieacs-sim.git . \
     && npm install --production
 
-ENV SIM_ACS_URL=""
-ENV SIM_SERIAL="SIM0001"
-ENV SIM_OUI="A1B2C3"
-ENV SIM_PRODUCT="SIM-ONT"
-ENV SIM_USERNAME=""
-ENV SIM_PASSWORD=""
-ENV SIM_INTERVAL=""
-ENV SIM_EXTRA_ARGS=""
+ENV SIM_ACS_URL="http://127.0.0.1:7547/"
+ENV SIM_DATA_MODEL="./data_model_202BC1-BM632w-8KA8WA1151100043.csv"
+ENV SIM_PROCESSES="1"
+ENV SIM_WAIT="1000"
+ENV SIM_SERIAL_OFFSET="0"
 
-CMD ["sh", "-c", "./genieacs-sim --acs ${SIM_ACS_URL} --serial ${SIM_SERIAL} --oui ${SIM_OUI} --product ${SIM_PRODUCT} ${SIM_USERNAME:+--username ${SIM_USERNAME}} ${SIM_PASSWORD:+--password ${SIM_PASSWORD}} ${SIM_INTERVAL:+--interval ${SIM_INTERVAL}} ${SIM_EXTRA_ARGS}"]
+CMD ["sh", "-c", "./genieacs-sim --acs-url ${SIM_ACS_URL} --data-model ${SIM_DATA_MODEL} --processes ${SIM_PROCESSES} --wait ${SIM_WAIT} --serial ${SIM_SERIAL_OFFSET}"]
 
