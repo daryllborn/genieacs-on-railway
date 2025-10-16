@@ -24,15 +24,16 @@ docker compose --profile local-db up -d --build
 
 ## Railway Deployment
 
-Railway builds each service from the Dockerfiles included in this repository. Create a Railway service for each component:
+Railway builds each service from your fork (`https://github.com/daryllborn/genieacs.git`). Set up one Railway service per component:
 
-| Service       | Dockerfile Path           | Required Variables                                           |
-| ------------- | ------------------------- | ------------------------------------------------------------ |
-| `genieacs`    | `genieacs/Dockerfile`     | `GENIEACS_MONGODB_CONNECTION_URL`, `GENIEACS_REDIS_HOST`, `GENIEACS_REDIS_PORT` |
-| `genieacs-nbi`| `genieacs-nbi/Dockerfile` | same as `genieacs`                                           |
-| `genieacs-fs` | `genieacs-fs/Dockerfile`  | `GENIEACS_MONGODB_CONNECTION_URL`                            |
-| `genieacs-gui`| `gui/Dockerfile`          | none (reads config bundled into image)                       |
-*(backend services build from `node:20-bullseye` and install GenieACS via `npm`; GUI uses the upstream image)*
+| Service         | Dockerfile Path           | Required Variables                                                                     |
+| --------------- | ------------------------- | -------------------------------------------------------------------------------------- |
+| `genieacs`      | `genieacs/Dockerfile`     | `GENIEACS_MONGODB_CONNECTION_URL`, `GENIEACS_REDIS_HOST`, `GENIEACS_REDIS_PORT`       |
+| `genieacs-nbi`  | `genieacs-nbi/Dockerfile` | Same as `genieacs`                                                                    |
+| `genieacs-fs`   | `genieacs-fs/Dockerfile`  | `GENIEACS_MONGODB_CONNECTION_URL`                                                     |
+| `genieacs-gui`  | `gui/Dockerfile`          | `GENIEACS_MONGODB_CONNECTION_URL`, `GENIEACS_REDIS_HOST`, `GENIEACS_REDIS_PORT`       |
+
+*(All services build from the fork with Node 20 and `npm install`.)*
 
 ### Environment Variables
 
@@ -45,6 +46,7 @@ Railway builds each service from the Dockerfiles included in this repository. Cr
 
 - Set `RAILWAY_DOCKERFILE_PATH` on each Railway service to point at the relevant Dockerfile if the repository layout is not automatically detected.
 - The GUI reads `gui-config/config.json`; customise it before deploying, then rebuild the `gui` image.
+- Optional: add a `genieacs-sim` service (Dockerfile in `genieacs-sim/`) to emulate TR-069 devices. See `docs/getting-started.md` for required env vars.
 
 ## Production Considerations
 
@@ -72,5 +74,5 @@ Refer to the [GenieACS installation guide](https://docs.genieacs.com/en/latest/i
 
 > Environment files (`.env`, `.env.*`, `env.local`) are ignored by Git; copy from samples when sharing credentials.
 
-- See `docs/getting-started.md` for onboarding steps and operational checklists.
+- See `docs/getting-started.md` for onboarding steps, the simulator reference, and operational checklists.
 

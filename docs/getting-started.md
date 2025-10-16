@@ -50,6 +50,36 @@ GENIEACS_UI_JWT_SECRET=<long-random-string>
 - **Monitoring:** Configure Railway log streaming or hook into the corporate monitoring stack. Set alerts for repeated `MongoParseError` or `Worker died` messages.
 - **Backups:** Document MongoDB backup strategy (Railway snapshots or external tooling) and schedule regular tests.
 
+### Optional: Device Simulator Service
+
+The repository ships with a `genieacs-sim/` image that wraps the legacy `genieacs-sim` tool so you can emulate TR-069 devices without hardware.
+
+**Environment variables** (required in Railway or when running the container):
+
+- `SIM_ACS_URL` – CWMP endpoint, e.g. `https://<cwmp-service>.railway.app:443/cwmp` (include explicit port)
+- `SIM_DATA_MODEL` – path to the data model template (default `./data_model_202BC1-BM632w-8KA8WA1151100043.csv` inside the image)
+- `SIM_PROCESSES` – number of devices to simulate (default `1`)
+- `SIM_WAIT` – milliseconds between spawning simulated CPEs (default `1000`)
+- `SIM_SERIAL_OFFSET` – offset used when computing serial numbers (default `0`)
+
+**Running locally**
+
+```
+docker build -t genieacs-sim ./genieacs-sim
+
+docker run --rm \
+  -e SIM_ACS_URL=http://localhost:7547/cwmp \
+  -e SIM_SERIAL_OFFSET=0 \
+  -e SIM_PROCESSES=1 \
+  genieacs-sim
+```
+
+**Railway service**
+
+1. Create a new service pointing to `genieacs-sim/Dockerfile`.
+2. Set at minimum `SIM_ACS_URL` (with port) and optionally override the other variables to emulate more devices.
+3. Redeploy and watch the logs for `Inform` activity. Each simulator instance appears as a device in the ACS UI.
+
 ## Further Reading
 
 - [GenieACS Installation Guide](https://docs.genieacs.com/en/latest/installation-guide.html)
