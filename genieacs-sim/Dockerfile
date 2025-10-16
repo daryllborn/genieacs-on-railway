@@ -11,7 +11,7 @@ RUN git clone --depth 1 https://github.com/genieacs/genieacs-sim.git . \
 
 ENV SIM_ACS_URL="http://127.0.0.1:7547/"
 ENV SIM_DATA_MODEL="./data_model_202BC1-BM632w-8KA8WA1151100043.csv"
-ENV SIM_PROCESSES="1"
+ENV SIM_PROCESSES="2"
 ENV SIM_WAIT="1000"
 ENV SIM_SERIAL_OFFSET="0"
 
